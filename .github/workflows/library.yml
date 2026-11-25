@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: neknaj/circuitgame2-cli
-          ref: 34a3befd9c8f05bed6465207cbeb504d4cc0c186
+          ref: 7ad33ac1b316b9d375e5e200b8b0a3100813c1a4
           path: cli
           persist-credentials: false
       - name: Build ncg2
