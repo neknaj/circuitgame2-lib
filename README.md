@@ -26,7 +26,13 @@ sources = ["main.ncg2", "vendor/circuitgame2-lib/src/ncg2/logic/gates.ncg2"]
   (def result (::ncg2lib::logic::xor left right)))
 ```
 
-上の手順と検査コマンドは、現行の `ncg2` CLI で扱える回路ライブラリが対象。NCG2M の補助関数は段階4の Core で型を検査した。実行結果の確認には段階4の評価器が必要になる。
+NCG2M の補助関数だけを検査するプロジェクトでは、例えば次のように指定する。
+
+```toml
+sources = ["main.ncg2m", "vendor/circuitgame2-lib/src/ncg2m/bool/logic.ncg2m"]
+```
+
+`main.ncg2m` から `::ncg2lib::bool::xor` などを呼ぶ。現在の `ncg2 check` では、補助関数の名前解決、型、呼び出しの循環を検査できる。NCG2M の値の評価と、両言語が混在する場合の回路本体の検査は今後の対応になる。
 
 ## ライブラリの検査
 
@@ -34,8 +40,9 @@ sources = ["main.ncg2", "vendor/circuitgame2-lib/src/ncg2/logic/gates.ncg2"]
 
 ```sh
 python tests/check_gates.py
+ncg2 check src/ncg2m/bool/logic.ncg2m tests/ncg2m/import.ncg2m
 ```
 
-ルートの `circuitgame2.toml` は回路ライブラリの検査用。別の名前空間から公開回路を参照し、2 ビットの全入力について `ncg2 eval` の出力を真理値表と照合する。利用側に取り込むソースは `src/` の下に置き、検査用のソースは `tests/` に置く。
+ルートの `circuitgame2.toml` は回路ライブラリの検査用。別の名前空間から公開回路を参照し、2 ビットの全入力について `ncg2 eval` の出力を真理値表と照合する。NCG2M の検査では、別の名前空間から公開補助関数を呼び、名前解決と型を確認する。利用側に取り込むソースは `src/` の下に置き、検査用のソースは `tests/` に置く。
 
 [名前解決の仕様](https://neknaj.github.io/circuitgame2/docs/names.html) · [関数型言語の仕様](https://neknaj.github.io/circuitgame2/docs/functional-types.html)

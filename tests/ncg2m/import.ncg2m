@@ -1,0 +1,10 @@
+(namespace library-check
+  (use ::ncg2lib::bool::not invert)
+
+  ; 別名と完全修飾名の両方で、公開した関数を他の名前空間から呼ぶ。
+  (defn combined
+    (as-type (Fn (Bool Bool) Bool)
+      (fn (left right)
+        (::ncg2lib::bool::xor
+          (::ncg2lib::bool::and (invert left) right)
+          (::ncg2lib::bool::or left (invert right)))))))
