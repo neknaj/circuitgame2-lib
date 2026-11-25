@@ -1,0 +1,20 @@
+(namespace ncg2lib::logic
+  (export not and or xor)
+
+  (func not (in value) (out result)
+    (def result (nor value value)))
+
+  (func and (in left right) (out result)
+    (def not-left (not left))
+    (def not-right (not right))
+    (def result (nor not-left not-right)))
+
+  (func or (in left right) (out result)
+    (def neither (nor left right))
+    (def result (not neither)))
+
+  (func xor (in left right) (out result)
+    (def either (or left right))
+    (def both (and left right))
+    (def not-both (not both))
+    (def result (and either not-both))))

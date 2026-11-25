@@ -1,0 +1,1 @@
+sources = ["src/ncg2/logic/gates.ncg2", "tests/ncg2/import.ncg2"]

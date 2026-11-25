@@ -1,0 +1,22 @@
+(namespace ncg2lib::bool
+  (export not and or xor)
+
+  (defn not
+    (as-type (Fn (Bool) Bool)
+      (fn (value)
+        (if value false true))))
+
+  (defn and
+    (as-type (Fn (Bool Bool) Bool)
+      (fn (left right)
+        (if left right false))))
+
+  (defn or
+    (as-type (Fn (Bool Bool) Bool)
+      (fn (left right)
+        (if left true right))))
+
+  (defn xor
+    (as-type (Fn (Bool Bool) Bool)
+      (fn (left right)
+        (if left (if right false true) right)))))
