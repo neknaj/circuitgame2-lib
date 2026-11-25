@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: neknaj/circuitgame2-cli
-          ref: 7ad33ac1b316b9d375e5e200b8b0a3100813c1a4
+          ref: 16dd0628b1a1d22eabd6bd9595d94c2a674fd951
           path: cli
           persist-credentials: false
       - name: Build ncg2
@@ -26,3 +26,5 @@ jobs:
         run: cargo build --locked --bin ncg2
       - name: Check public gates and truth tables
         run: python3 tests/check_gates.py cli/target/debug/ncg2
+      - name: Check NCG2M Boolean helpers from a separate namespace
+        run: cli/target/debug/ncg2 check src/ncg2m/bool/logic.ncg2m tests/ncg2m/import.ncg2m
