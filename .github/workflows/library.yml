@@ -1,0 +1,28 @@
+name: Library checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  circuit-library:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: neknaj/circuitgame2-cli
+          ref: 34a3befd9c8f05bed6465207cbeb504d4cc0c186
+          path: cli
+          persist-credentials: false
+      - name: Build ncg2
+        working-directory: cli
+        run: cargo build --locked --bin ncg2
+      - name: Check public gates and truth tables
+        run: python3 tests/check_gates.py cli/target/debug/ncg2

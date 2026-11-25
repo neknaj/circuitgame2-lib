@@ -1,0 +1,7 @@
+(using nor)
+
+(func library-probe (in left right) (out inverted conjunction disjunction parity)
+  (def inverted (::ncg2lib::logic::not left))
+  (def conjunction (::ncg2lib::logic::and left right))
+  (def disjunction (::ncg2lib::logic::or left right))
+  (def parity (::ncg2lib::logic::xor left right)))
